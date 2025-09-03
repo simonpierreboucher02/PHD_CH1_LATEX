@@ -1,0 +1,115 @@
+\section{Econometric framework and methods}
+\subsection{Modeling the impact on returns}\label{return}
+
+%. To be consistent with the existing literature, we perform the two procedures for the regression 
+
+Our regression models are based on \citet{kurov2019price} and \citet{andersen2007real}. We run the regressions using two different specifications of equation (\ref{eq:Model 1}):
+
+\begin{equation}\label{eq:Model 1}
+R_{t}^{t+\tau}=\alpha+\sum_{m=1}^{22} \gamma_m S_{m,t}+ \delta X_{t,i} + \sum_{m=1}^{22} \theta_m (S_{m,t} \cdot X_t)+\beta R_{t-\tau}^{t}+\epsilon_{t} 
+\end{equation}
+where  $R_{t}^{t+\tau}$ denotes the continuously compounded futures return from time $t$ and $t+\tau$, $S_{mt}$ denotes the surprise for macroeconomic announcement $m$ published at time $t$. $X_{t,i}$ is the financialization proxy for commodity  $i$ measured at time $t$. There are three possible values for  $X_{t,i}$ depending on which proxy is used: $MSCT_i$, $NLS_i$ and $WT_i$ . %$X_{i = 1}$. exogenous variable are:  $X_{t,1}$, $X_{t,2}$ and $X_{t,3}$ represent the
+We estimate the regression using a two-step weighted least squares procedure.
+%We denote as $X_{t,i}$, with $i=\{1,2,3\}$ the
+%financialization variables
+
+\subsubsection{Approach based on \citet*{kurov2019price}}
+
+Next, we estimate equation~(\ref{eq:Model 1}) using the approach shown in \citet{kurov2019price}. To account for heteroskedasticity, we construct a volatility estimate by means of an exponential moving average, using the regression residuals obtained in the first step. This auxiliary regression is shown in equation~(\ref{eqn:auxiliary 2}), with a smoothing parameter $\alpha=0.9$ and a starting parameter value set to  $\sigma_1=\epsilon_t$:
+
+\begin{equation}\label{eqn:auxiliary 2}
+\sigma_t=\alpha \sigma_{t-1}+(1-\alpha) \mid \epsilon_t \mid 
+\end{equation} 
+
+After obtaining  $\sigma_t$ for each observation, we transform it using $w_t = \hat{\sigma_t}^{-2}$ to obtain the WLS regression weight.
+%\begin{align*}
+%w_t = \hat{\sigma_t}^{-2}
+%\end{align*}
+As with the previous regression equation, we complete this step by multiplying each variable by  $w_t$ and running an OLS regression to estimate the model.    %, to finally estimate the model again by OLS.
+ 
+
+ 
+\subsubsection{Approach based on \citet*{andersen2007real}}
+
+ The first approach follows \citet{andersen2007real} and estimates equation~(\ref{eq:Model 1}) by OLS. Then, we regress the model's residuals in absolute value on the macro variables and 23 time-of-the-day dichotomous variables. This auxiliary regression is shown by equation (\ref{eqn:auxiliary1}):
+
+\begin{equation}\label{eqn:auxiliary1}
+\mid \epsilon_{t} \mid=\rho+\sum_{m=1}^{22} \zeta_m S_{m,t}+\sum_{h=1}^{23} \delta_h D^h 
+\end{equation}
+
+
+After estimating the model, we use the fitted value of the residuals from eq.~(\ref{eqn:auxiliary1}) to obtain the WLS regression weight $w_t = \hat{\epsilon_t}^{-2}$. Then, we multiply each left- and right-hand side variable in our original model by $w_t$ and estimate the model once more by OLS.
+%
+%\begin{align*}
+%\end{align*}
+
+
+ 
+ 
+The impact of macro announcements on commodity futures returns  can be assessed by looking at the significance of the $\gamma_m$ coefficient  in the mean equation. As for the impact of financialization on commodity futures returns, we test the significance of the $\delta$ coefficient. Finally, we look at the sign and significance of $\theta_m$ to assess the impact of time-varying financialization on the size of the post-macro announcement drift. This last coefficient is the most important one to help answer our main research question.
+ 
+\subsection{Modeling the impact on volatility}\label{variance}
+
+As  volatility is unobservable, different volatility estimators have been provided by the literature. 
+Using a GARCH specification is justified by the time-varying and clustered volatility of commodity price returns  \citep*[see e.g.,][]{hammoudeh2008metal}.
+To quantify the relationship between commodity price volatility and financialization, we use a GARCH~(1,1) model, and extend the volatility equation by including our financialization variable  and the macroeconomic surprise variables. Estimating the GARCH model is done in two steps. 
+%The GARCH(1,1) specification is used to quantify the impact of macro announcements and financialization on conditional variance. Estimating the GARCH model is done in two steps.
+ First, we estimate the mean equation equation~(\ref{eqn:MeanEqn}):
+\begin{equation}\label{eqn:MeanEqn}
+R_{t}^{t+\tau}=\alpha+\sum_{m=1}^{22} \gamma_m S_{m,t}+\beta R_{t,-\tau}^{t}+\epsilon_{t}
+\end{equation}
+
+Then, we estimate  the following equation for conditional variance:
+
+\begin{equation}\label{eqn:VarianceEqn}
+\sigma_{t}^2=\alpha_0+\alpha_1 \sigma_{t-1}^2+\alpha_2 \epsilon_t^2 +\sum_{m=1}^{22} \Phi_m D_{m,t}+\beta X_{i,t}+\sum_{k=1}^n \phi_k I_{kt} + \sum_{h=1}^{23} \rho_h D_h
+\end{equation}
+
+where $I_{k,t}=D_{m,t} \cdot X_{i,t}$ and $D_{m,t}$ is a dummy variable for macro announcement $m$. The  latter equals $1$ if an announcement takes place at time $t$ and equals 0 otherwise. $X_{i,t}$  is the financialization variable $i$ at  time $t$. The coefficient $\rho_h$ captures intraday periodicity, with the dummy $D_h$ taking a value of 1 if we are at hour h and 0 otherwise. The impact of macro announcement $m$ on commodity futures volatility is assessed by looking at the significance of the $\Phi_m$ coefficient in the variance equation~(\ref{eqn:VarianceEqn}). To see the impact of the financialization variable $X_{i,t}$ on commodity futures volatility, we look at the  $\beta$ coefficient. Finally, we look at the  $\phi_k$ coefficient to assess the simultaneous impact on commodity futures volatility of  financialization  and the surprise in macro announcement $m$. 
+
+Among the announcements in our sample, all but one are ``good news.'' Only a positive surprise in Initial Jobless Claims indicates a deterioration in economic conditions. Therefore, the surprise coefficient is expected to be positive for all pro-cyclical commodities (i.e., all but gold and silver) for all announcements except Initial Jobless Claims, for which it should be negative (since a positive surprise is ``bad news''). In the case of gold and silver, which are safe-haven commodities, the reverse is expected for coefficient signs.
+
+\subsection{Impact by type of non-commercial trader}
+To better understand the effects of financialization, we repeat the procedure in equations (\ref{eqn:MeanEqn})  and (\ref{eqn:VarianceEqn})  for two separate groups of non-commercial investors: swap dealers and money managers. 
+A swap dealer is an entity that deals primarily in swaps for a commodity and uses the futures markets to manage or hedge the risk associated with those swaps transactions. The swap dealer's counterparties may be speculative traders, like hedge funds, or traditional commercial clients that are managing risk arising from their dealings in the physical commodity.
+ A money manager is a registered commodity trading advisor (CTA), a registered commodity pool operator (CPO), or an unregistered fund identified by the CFTC. These traders  manage and conduct organized futures trading on behalf of clients. 
+For both categories (swap dealers and managed money), the CFTC reports the number of long and short positions. We compute the NLS index \citep{hedegaard2011margins} for each trader category, allowing us to quantify the extent of speculation by money managers and swap traders, respectively. For swap traders, we denote the index by $NLS_{swap}$ while for money managers, it is denoted by $NLS_{mm}$. 
+
+\subsubsection{Money Managers}%IL FAUDRAIT UNE AUTRE REFERENCE QUE ZHANG 2022
+Money managers in commodity markets typically refer to non-commercial market participants who are involved in managing funds and investing in commodity futures and options markets. \cite{zhang2022}\footnote{The CFTC writes that they are ``registered commodity trading advisor (CTA); a registered commodity pool operator (CPO); or an unregistered fund identified by CFTC.''.} They often interact with swap dealers and other commercial actors to provide liquidity in these markets \cite{zhang2022}. Their activities are influenced by various factors such as speculative activity, imperfect information about real economic activity as well as supply, demand, and inventory accumulation in  commodity markets \citep{singleton2014}. %Additionally, from a monetarist perspective, an increase in money supply can lead consumers to invest more in commodity markets to restrict excess money available to them \cite{pal2023}. CECI SÈLOIGNE TROP
+%Furthermore, the financialization of commodity markets has been a subject of study, particularly in emerging economies like India, where the influence of financial markets on the financialization of agricultural commodities has been highlighted \cite{rlmishra2021}. TU TÈLOIGNES TROP ICI ON VEUT JUSTE DEFINIR MONEY MANAGERS This financialization has implications for price discovery, risk management, and stabilization of commodity markets \cite{rlmishra2021}. In the context of the emergence of money in commodity exchange economies, there is evidence of competition among commodities for the status of money, indicating the complex dynamics of money and circulation in commodity markets \cite{gebarowski2015}. 
+
+%In summary, a money manager in commodity markets is a non-commercial participant involved in managing funds and making investment decisions, interacting with commercial entities to provide liquidity. Their activities are influenced by factors such as speculative activity, imperfect information, and monetary factors. The financialization of commodity markets and the competition among commodities for the status of money further contribute to the complexity of their role in commodity markets. CECI EST TROP SEMBLABLE À CE QUE TU AS DEJA ECRIT EN HAUT.
+
+\subsubsection{Swap Dealers}
+
+Swap dealers in commodity markets are dealers and market makers in the swap market. They typically use futures contracts to hedge risk generated by their swap positions. In doing so, they contribute to price discovery and liquidity \citep{brunetti2016}.  The role of swap dealers has been studied  in relation to index investments, as their positions are distinct from those of other market participants \citep{sanders2016}. 
+%Ajouter que nos mesures permettre de quantifier l
+%Swap dealers play a crucial role in providing liquidity to non-commercials, such as money managers, in commodity options markets \cite{zhang2022}. Their positions are largely unrelated to market returns and volatility,  \citep{brunetti2016} . 
+
+%Additionally, swap dealers' activity has been exempted from trading limits, enhancing speculator activity in commodity markets \cite{lagi2011}.  IL FAUDRAIT UNE REFERENCE BETON SI ON VEUT DIRE CA
+%The data show that swap dealers hold globally high and mainly long net positions, contributing to the financialization of commodity markets \cite{soana2020}.  IBID MEILLEURE REFERENCE NCESSAIRE
+%Additionally, swap dealers' positions, as a proxy for commodity index fund positions, have been analyzed in relation to returns and volatility in crude oil, natural gas, and corn futures markets, with no statistical link found using Granger causality tests \cite{park2019}. IBID IL FAUDRAIT UNE MEILLEURE REFERENCE SI ON VEUT DIRE CA
+%In summary, swap dealers in commodity markets play a crucial role in providing liquidity, enhancing price discovery, and contributing to the financialization of commodity markets. Their positions are distinct from other market participants, and their activities have implications for market dynamics and regulatory policies. IL FAUDRAIT DIRE QUELQUE CHOSE DE PLUS PRECIS ICI.
+\subsection{Principal Component Analysis for Financialization Variable}
+To construct a comprehensive financialization variable, we employed Principal Component Analysis (PCA). Our approach involved the following steps:
+
+\begin{enumerate}
+    \item \textbf{Data Standardization}: Given the distinct scales and variances of our variables - Net Long Short (NLS), Market Share of Non-Commercial (MSCT), and Working-T (WT), we first standardized each variable to have a mean of zero and a standard deviation of one. This ensures equal contribution to the PCA model.
+    \begin{equation}
+        X_{std} = \frac{X - \mu}{\sigma}
+    \end{equation}
+    where \( X \) is the original variable, \( \mu \) is the mean, and \( \sigma \) is the standard deviation.
+
+    \item \textbf{Covariance Matrix Computation}: We then calculated the covariance matrix to understand how our variables vary from the mean with respect to each other. The covariance matrix forms the basis for extracting principal components.
+    
+    \item \textbf{Eigenvalue Decomposition}: We performed an eigenvalue decomposition on the covariance matrix. This step involves calculating eigenvalues and eigenvectors, which are critical in determining the principal components.
+
+    \item \textbf{Principal Components Selection}: Principal components are the eigenvectors of the covariance matrix, and they are ordered by their corresponding eigenvalues in descending order. We selected the first principal component as it explains the most variance in our data.
+    \begin{equation}
+        PC1 = \text{argmax}(\lambda)
+    \end{equation}
+    where \( PC1 \) is the first principal component and \( \lambda \) are the eigenvalues.
+
+    \item \textbf{Creating the Financialization Variable}: The first principal component (PC1), which encapsulates the most significant patterns and trends across NLS, MSCT, and WT, was used as the comprehensive financialization variable in our model.
+\end{enumerate}

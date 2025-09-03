@@ -1,0 +1,107 @@
+%% Auteur: Simon-Pierre Boucher, Université Laval, Chapitre 1 : thèse de doctorat
+
+\documentclass[12pt]{article}
+
+\usepackage{amssymb,amsmath,amsfonts,eurosym,geometry,ulem,graphicx,caption,color,setspace,comment,footmisc,pdflscape,subfigure,array,hyperref}
+\usepackage{rotating}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{lscape}
+\usepackage[dvipsnames]{xcolor}
+\definecolor{mypink1}{rgb}{0.858, 0.188, 0.478}
+\usepackage{tablefootnote}
+\usepackage{ragged2e}
+\usepackage{nicematrix}
+\usepackage{enumitem}
+\usepackage{wasysym}
+\usepackage{framed}
+\usepackage{pgfgantt}
+\usepackage{subfloat}
+\usepackage{blindtext}
+\usepackage{colortbl}
+\usepackage{palatino}
+\usepackage{mathpazo}
+\usepackage[flushleft]{threeparttable}
+\usepackage[margin=15pt,font=small,labelfont={bf,sf}]{caption}
+\usepackage[semibold]{sourcesanspro}
+\usepackage{sectsty}
+\allsectionsfont{\sffamily}
+
+\hypersetup{colorlinks,
+citecolor=blue,
+linkcolor=magenta
+}
+
+\usepackage{environ,atbegshi}
+\makeatletter
+\newif\ifAtEnd@DontShowMe
+\newcommand*\contents@DontShowMe{}
+
+\normalem
+
+\doublespacing
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}{Proposition}
+\newenvironment{proof}[1][Proof]{\noindent\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+
+\newtheorem{hyp}{Hypothesis}
+\newtheorem{subhyp}{Hypothesis}[hyp]
+\renewcommand{\thesubhyp}{\thehyp\alph{subhyp}}
+
+\usepackage{natbib}
+\bibliographystyle{chicago}%abbrvnat
+\setcitestyle{authoryear,open={(},close={)}} %Citation-related commands
+\geometry{left=1.0in,right=1.0in,top=1.0in,bottom=1.0in}
+
+\singlespacing
+\title{\textbf{Has financialization changed the impact\\ of macroeconomic announcements?}}
+
+
+\author{Simon-Pierre Boucher\footnote{PhD student in finance, Université Laval, Quebec City QC Canada G1V 0A6, email:   \texttt{simon-pierre.boucher.1@ulaval.ca}}\and Marie-H{\'e}l{\`e}ne Gagnon\footnote{Professor of Finance and Research Fellow, CRREP, Université Laval, email: \texttt{marie-helene.gagnon@fsa.ulaval.ca}}\and Gabriel J. Power\footnote{IG Wealth Management Chairholder, Professor of Finance and Research Fellow, CRREP and CRIB, Université Laval, email:   \texttt{gabriel.power@fsa.ulaval.ca}}}
+
+\date{\today}
+\begin{document}
+\begin{titlepage}
+\maketitle
+
+\singlespacing
+
+\begin{abstract}
+\noindent 
+We investigate, using high-frequency data, how financialization has changed the impact of macroeconomic announcements on commodity futures returns and volatility. We find that greater financialization dampens the impact of macroeconomic release surprises on commodity markets, as measured by price drift and volatility changes. Moreover, financial participants improve liquidity and price discovery, while reducing volatility. Since traditional market participants prefer stability, our results suggest a beneficial impact of financialization. When we disaggregate the results, we find that the beneficial effects of greater financial participation are linked to money managers rather than swap dealers. 
+
+\vspace{0.2in}
+\noindent\textbf{Keywords:} commodities, energy, futures,  information diffusion, financialization, high-frequency, speculation, sustainable, commercial, institutional, volatility, macro, announcements, surprise, events.\\
+
+
+\bigskip
+\end{abstract}
+\setcounter{page}{0}
+\thispagestyle{empty}
+\end{titlepage}
+\pagebreak \newpage
+
+
+
+\doublespacing
+
+% Include section files
+\input{sections/01_introduction}
+\input{sections/02_literature_review}
+\input{sections/03_data}
+\input{sections/04_methods}
+\input{sections/05_results}
+\input{sections/06_conclusion}
+
+\small
+\bibliography{master}
+\newpage
+
+\include{tables}
+\include{figures}
+\include{appendix_full}
+\include{appendix_zlb}
+\include{appendix_covid}
+\end{document}

@@ -1,0 +1,136 @@
+\section{Data}
+%We denote $R_t$ as the return over a period of 5 minutes starting exactly at time $t$. %contains, for all 5-minute intervals%of that 5-minute period  %%Subsequently, the return  by using $p_{t}^{Open}$ and $p_{t+\tau}^{Close}$
+%The publication (or release) of the realized value of a high frequency macroeconomic announcement affects markets \citep*{andersen1998deutsche}. To measure its impact, different methodologies have been considered.
+ %Here we describe our approach.  First,  to standardize and quantify the unexpected component (i.e., surprise) of a macroeconomic announcement release, we use the standardized surprise of an announcement rather than its realized value. For the calculation of the standardized surprise, we follow the approach detailed by \citet*{balduzzi2001economic}. Then, we use the standardized surprise in a regression model using high-frequency return data. Our regression model is based on frameworks described in \citet*{andersen2007real} for the specification and \citet*{kurov2019price} for modeling the error term.
+%
+%Our data sources are as follows. For intraday data on commodity futures prices, we use Barchart's API.\footnote{ See the \url{https://www.barchart.com/futures} website.} The CFTC data on money manager and swap dealer positions are obtained from Quandl's API,\footnote{See the \url{https://data.nasdaq.com/data/CFTC-commodity-futures-trading-commission-reports} website.} and The macroannouncement announcement release data are collected from Bloomberg and Refinitiv.
+
+\subsection{Data on macroeconomic announcements}
+ 
+The macroeconomic announcement release data are obtained from Bloomberg and Refinitiv Eikon. We collect information on 22 important  announcements that are standard to the literature \citep[see e.g.,][]{andersen1998deutsche,kurov2019price}. The announcements can be broken down into ten categories: Income, Employment, Industrial Activity, Investment, Consumption, Housing Sector, Government, Net Exports, Inflation and Forward-looking. The majority of the announcements are released on a monthly basis. However, there are some exceptions which have a quarterly or weekly frequency of release. Table \ref{tab:stat1} summarizes the announcements and provides details including number of observations, release frequency, source, unit of measure, and time of release. Bloomberg provides analyst forecasts for all macroeconomic announcements, as well as the actual value of the announcement release \citep[see e.g.,][]{kurov2019price}. 
+
+In addition to macroeconomic announcements, we consider energy sector-specific announcements published by the U.S. Energy Information Administration. The first is the weekly crude oil storage report, which provides an update on the quantity of crude oil held in storage in the U.S. This report can have a significant impact on oil prices, as it provides insights into a buffer that affects the supply and demand equilibrium for crude oil. The second is the weekly natural gas storage report, which provides similar information for natural gas held in storage. As these reports are closely watched by energy sector traders, they can generate market movements. We do not include OPEC announcements, as they cannot be reliably used in a high-frequency econometric design \citep{10.1257/aer.20190964}.\footnote{There are two issues with the OPEC announcements: First, they are not released at a specific time, and second, it is impossible to know precisely when a given OPEC announcement was made available to investors.} 
+
+
+%For the expectation $E_{kt}$ of the macro announcement realized value, we use the  median analyst forecast provided by Bloomberg.
+%Following the  macro announcements literature, we do not directly use the value of the announcement release, but rather the resulting surprise. To calculate announcement surprises, we follow
+In this literature, it is common practice to use the standardized surprise of an announcement  rather than its realized value  to quantify the unexpected component of the release. To calculate announcement surprises, we follow  \citet*{balduzzi2001economic} as a starting point. Let  $A_{kt}$ be the realized value (i.e., release) of macroeconomic announcement $k$ at time $t$, and let $E_{kt}$ be the median value of all Bloomberg analyst forecasts for announcement $k$ at time $t$.  To standardize the surprise, we divide the raw surprise $(A_{kt}-E_{kt})$ by $\sigma_k$, the sample standard deviation of the surprise for announcement $k$. Thus, equation (\ref{eqn:SURPRISE}) describes the standardized surprise for  announcement $k$ at time $t$ :
+%%IL FAUT PRECISER QUELS ANALYSTES, QUEL FORECASTS, QUELLE SOURCE POUR CES FORECASTS
+%the entire period of our sample
+
+\begin{equation}\label{eqn:SURPRISE}
+S_{kt}=\frac{A_{kt}-E_{kt}}{\sigma_k}
+\end{equation}
+
+
+
+As in \citet{balduzzi2001economic} and \citet{kurov2019price}, the full sample period is used to compute $\sigma_k$.\footnote{The literature argues that measuring $\sigma_k$ in this manner is reasonable because the standardized surprise is not used for forecasting purposes. This approach is also used in \citet{SCOTTI20161}, \citet{andersen2003micro}, and \citet{NBERw19523}. Using raw surprises is not recommended due to scaling issues, nor is using analyst dispersion for $\sigma_k$ because announcement coverage sometimes involves only a few analysts.} For robustness, we also estimate our models using surprises where $\sigma_{k}$ is computed using only past observations. The main findings are unchanged.\footnote{In this case, we exclude the first $M$ observations (e.g., $M=10$)  to get a reasonable sample size for $\sigma_{k}$.}  Thus, we report regression results based on the most standard methodology in the literature.
+
+
+Our sample for macroeconomic announcements is matched to our high-frequency data and therefore runs from April 2nd, 2007 to October 31st, 2023. The data for all announcements in our study can be obtained from their respective government organizations, as shown in Table \ref{tab:stat1}. 
+%MH      MH     MH a changer les dates. 
+%The data-publishing organizations are the Bureau of Economic Analysis\footnote{Source: \url{https://www.bea.gov}}, the Department of Labor \footnote{Source: \url{https://www.dol.gov}}, the US Census Bureau \footnote{Source: \url{https://www.census.gov}} and the Federal Reserve \footnote{Source: \url{https://www.federalreserve.gov}}
+%, data are available from Bloomberg
+Table \ref{tab:stat2} presents the minimum, 1st quartile, median, mean, 3rd quartile and maximum of the surprise for each announcement. As expected, the standardized surprises are centered on zero. For some announcements, the range is roughly from -3 to 3, but in many cases the outliers display asymmetry. For instance, the Initial Jobless Claims maximum value (20.746) is much larger than the minimum (-3.117) while conversely, Consumer Credit and Personal Consumption show larger negative than positive outliers. 
+
+
+
+\subsection{Commodity futures price data}
+
+For intraday data on commodity futures prices, we use Barchart's API.\footnote{ See the \url{https://www.barchart.com/futures} website.}  Our dataset for prices contains some of the most economically significant commodity futures contracts traded in the U.S. We use a high frequency price series that runs from April 2nd, 2007 to October 31st, 2023. Among these contracts, crude oil and natural gas have a pro-cyclical behavior, while gold and silver behave as a safe haven. High-grade copper and palladium are industrial metals and are used in the manufacturing of consumer products. %Results for additional commodities (e.g., agriculturals) are shown in the online appendix.
+
+%MH      MH     MH a changer les dates. 
+% MH     Mh       MH    vraiment??? moi je ne vois pas les autres commodités dans les appendix. Si elles sont quelque part, il faut les présenter. Sinon, on dit available on request. 
+
+For each of the commodities in our sample, price returns $R_t$ are calculated as the log return over a period of 5 minutes $(\tau=5)$ beginning at time $t$. For each 5-minute interval, the database provides the futures contract close price ($p_{t}^{close}$) of each 5 minutes periods. Thus, $R_t$ is obtained  as in equation (\ref{eqn:RETURN}):
+
+\begin{equation}\label{eqn:RETURN}
+R_t^{t+\tau}=\ln \left( \frac{p_{t+\tau}^{close}}{p_{t}^{close}} \right)=\ln (p_{t+\tau}^{close})-\ln(p_{t}^{close})
+\end{equation}
+
+Descriptive statistics for the 5-minute log returns are presented in table \ref{tab:stat4}. In one of our robustness checks, we confirm that the main findings are robust to using different window lengths. To this end, we estimate equation \ref{eqn:RETURN}  using 30-minute returns.  The most extreme outlier observations belong to crude oil, while gold has the fewest extreme outliers. Moreover, natural gas is more volatile than other commodities. %linked to the April 20, 2020
+
+%%ICI J'AI REMPLACE EQUATION1 PAR EQN RETURN
+%Our last analysis seeks to confirm that the results obtained using 5-minute returns can be confirmed if we use returns calculated over a larger time interval. To do this, we estimate again, but this time
+% ICI EST-CE QUE C'<EST UNE PREDICTION THEORIQUE OU C'EST CE QUE RAPPORTE LA LITTERATURE?
+
+\subsection{Measures of commodity financialization and categories of traders}
+We argue that financialization is greater when speculative activities increase relative to productive activity. To measure the impact of financialization, we need a measure that captures the intensity of speculation in commodity markets. The indexes we use are constructed using data in the \emph{Commitment of Traders (COT) Report} published weekly by the Commodity Futures Trading Commission (CFTC).  The data provided by the CFTC relates to the number of positions held by different types of participants in commodity markets. The data on money manager and swap dealer positions are obtained from Quandl's API\footnote{See the \url{https://data.nasdaq.com/data/CFTC-commodity-futures-trading-commission-reports} website.}.  The CFTC separates trader types as follows:\footnote{The CFTC defines commercial traders as participants in commodity markets who primarily use futures contracts to hedge their business activities (e.g., buying or selling commodities). All traders who are not classified as Commercial are automatically classified as Non-Commercial traders. To obtain the number of long positions held by Non-Commercial traders, we subtract the total long Commercial Positions from the total open interest. For the number of short positions held by Non-Commercial traders, we subtract the total short Commercial Positions from the total open interest.}
+%commodity markets are more financialized %Commodity Futures Trading Commission (CFTC)%The CFTC provides a comprehensive database with weekly observations.%is only related%the types of traders
+%PUT HERE THE SOURCE WEBSITE OF THE CFTC COT DATA
+
+\begin{enumerate}
+\item \textbf{Commercial}: We classify as commercial all trader reported futures positions for a given commodity if the trader claims to use futures contracts in that commodity for purposes of hedging;
+\item \textbf{Non-Commercial:} This value is obtained by subtracting total long and short commercial positions from  total open interest.
+\end{enumerate}
+  
+The following information on commodity futures contracts is presented in the CoT report and is used to compute financialization measures:
+
+\begin{itemize}
+\item $SS_i$: the number of short positions in  futures $i$  held by Non-Commercial traders,
+\item $SL_i$: the number of long positions in  futures $i$  held by Non-Commercial traders,
+\item $HS_i$: the number of short positions in  futures $i$  held by Commercial traders, 
+\item $HL_i$: the number of long positions in  futures $i$  held by Commercial traders.
+\end{itemize}
+
+\subsubsection{Working's $T$}
+The first proxy we consider to  compare levels of speculative and hedging activity is due to \citet{working1960speculation}.\footnote{\citet{shanker2017new} provides an updated definition of Working's $T$.} This index compares the activity levels of Non-Commercial commodity futures traders (e.g., speculators) to those of Commercial traders (e.g., hedgers). Typically, Commercial traders take short positions in futures contracts while Non-Commercial traders take long positions. This proxy measures the extent to which speculation exceeds the level required to offset any unbalanced hedging at the market clearing price. For robustness, we present below two alternative measures of financialization which we also use in the empirical analysis. The Working's $T$ index, $WT_i$, is computed as follows:
+%the level of activity of%can be constructed using
+
+
+\begin{equation} \label{eqn:Working}
+ WT_i\left\{\begin{matrix}
+ 1+\frac{SS_i}{HL_i+HS_i} \hspace{0.5cm} \mbox{if} \hspace{0.5cm} HS_i \ge HL_i\\
+1+\frac{SL_i}{HL_i+HS_i} \hspace{0.5cm} \mbox{if} \hspace{0.5cm} HS_i < HL_i
+\end{matrix}\right.
+\end{equation}
+
+
+\subsubsection{Market share of Non-Commercials (MSCT)}
+Instead of Working's $T$, \citet*{buyukcsahin2014speculators} suggest a measure of commodity financialization that emphasizes the market share of Non-Commercial traders (MSCT). This ratio is expressed as  the sum of the short and long positions of Non-Commercial traders over twice the total open interest in a given market: 
+%The market share of non-commercial traders%between
+
+
+
+\begin{equation} \label{eqn:MSCT}
+MSCT_i=\frac{SL_i+SS_i}{2 \times OI_i}
+\end{equation}
+
+
+
+\subsubsection{Net Long Short (NLS)}
+A further alternative suggested by \citet{hedegaard2011margins} is to define an index of speculative activity as the ratio of net long speculative positions over total open interest ($NLS_i$),
+
+\begin{equation} \label{eqn:NLS}
+NLS_i=\frac{SL_i-SS_i}{OI_i}
+\end{equation}
+
+Using disagregate data from the CFTC, we compute the NLS index using Money Manager and Swap Dealer Position. 
+\subsubsection*{Definition of Money Manager}
+Money managers in commodity markets typically refer to non-commercial market participants who are involved in managing funds and investing in commodity futures and options markets. \cite{zhang2022}\footnote{The CFTC writes that they are ``registered commodity trading advisor (CTA); a registered commodity pool operator (CPO); or an unregistered fund identified by CFTC.''.} They often interact with swap dealers and other commercial actors to provide liquidity in these markets \cite{zhang2022}. Their activities are influenced by various factors such as speculative activity, imperfect information about real economic activity as well as supply, demand, and inventory accumulation in  commodity markets \citep{singleton2014}. 
+
+%%%MH     MH     MH   il faut parler de pourquoi on pense qu'ils sont plus informés en lien avec la littérature. ici.
+%The term ``money manager'' in commodity markets typically refers to non-commercial participants who are involved in managing funds and making investment decisions in commodity options markets \cite{zhang2022}. These money managers often interact with swap dealers and other commercial entities to provide liquidity in the commodity options markets \cite{zhang2022}. Their activities are influenced by various factors such as speculative activity, imperfect information about real economic activity, supply, demand, and inventory accumulation in the commodity markets \cite{singleton2014}. Additionally, from a monetarist perspective, an increase in money supply can lead consumers to invest more in commodity markets to restrict excess money available to them \cite{pal2023}. Furthermore, the financialization of commodity markets has been a subject of study, particularly in emerging economies like India, where the influence of financial markets on the financialization of agricultural commodities has been highlighted \cite{rlmishra2021}. This financialization has implications for price discovery, risk management, and stabilization of commodity markets \cite{rlmishra2021}. In the context of the emergence of money in commodity exchange economies, there is evidence of competition among commodities for the status of money, indicating the complex dynamics of money and circulation in commodity markets \cite{gebarowski2015}. 
+
+%In summary, a money manager in commodity markets is a non-commercial participant involved in managing funds and making investment decisions, interacting with commercial entities to provide liquidity. Their activities are influenced by factors such as speculative activity, imperfect information, and monetary factors. The financialization of commodity markets and the competition among commodities for the status of money further contribute to the complexity of their role in commodity markets.
+
+\subsubsection*{Definition of Swap Dealer}
+Swap dealers in commodity markets are dealers and market makers in the swap market. They typically use futures contracts to hedge risk generated by their swap positions. In doing so, they contribute to price discovery and liquidity \citep{brunetti2016}.  The role of swap dealers has been studied  in relation to index investments, as their positions are distinct from those of other market participants \citep{sanders2016}. 
+
+% MH     MH     MH   je pensais qu'on devais ici donner de la littearature qui dit qu'ils sont des spéculateurs dans plusieurs marchés.    definir le swap de commodité   
+%The term ``swap dealer'' in commodity markets refers to entities that facilitate trading activities by providing liquidity and enhancing price discovery in futures markets \cite{brunetti2011}. The literature provides evidence regarding the role of swap dealers as speculators in different markets. Irwin \& Sanders (2011) found that approximately 85\% of index-related positions in agricultural futures markets are held by swap dealers, indicating their significant presence as speculators in these markets \cite{irwin2011}. Additionally, Field (2016) concluded that limiting the participation of large financial speculators such as index swap dealers would impact market liquidity and risk-bearing capacity, highlighting the important role of swap dealers in providing liquidity and risk-bearing capacity in the markets \cite{field2016}. Furthermore, Brunetti et al. (2016) examined the relationship between swap dealer participation and market volatility, finding that increased swap dealer participation was accompanied by market volatility, indicating their influence on market dynamics \cite{brunetti2016}. Similarly, another study by Brunetti et al. (2011) illustrated the increase in speculative open interest from swap dealers in markets, emphasizing their active involvement in speculation \cite{brunetti2011}. Moreover, Bosch \& Pradkhan (2015) highlighted the reliance on swap dealer positions as a proxy for commodity index investors in futures markets, further underlining their role as speculators \cite{bosch2015}. 
+
+
+%measuring the extent of speculation%by calculating%present the descriptive statistics for the financialization variables%We can see that%The level of financialization of palladium seems to be very volatile compared to other commodities.%These results suggest that  p
+%Furthermore, when we look at the minimum and maximum value, we also see that palladium has the lowest minimum value and the highest maximum value. 
+%the most volatile financialization level, having
+
+
+% MH    MH      MH   il faut ajouter la partie PCA ici. 
+
+
+\subsubsection{Descriptive Statistics}
+Descriptive statistics for the three financialization variables are shown in table \ref{tab:stat5}. These proxies are computed separately for each of the six commodities in our sample, based on the number of open positions for a given futures contract. The variables themselves are scale-free, unlike the number of open positions. The MSCT variable fluctuates between 0 and 0.5, while  NLS  varies between -0.4 and 0.8, and  Working's $T$  between 1 and 2. Time series plots of  MSCT, NLS and Working's $T$  are shown in figures \ref{fig:MSCT}, \ref{fig:NLS} and \ref{fig:WT}, respectively, for each of the six commodity futures in our sample. 
+%measuring the extent of speculation%by calculating%present the descriptive statistics for the financialization variables%We can see that%The level of financialization of palladium seems to be very volatile compared to other commodities.%These results suggest that  p
+%Furthermore, when we look at the minimum and maximum value, we also see that palladium has the lowest minimum value and the highest maximum value. 
+%the most volatile financialization level, having

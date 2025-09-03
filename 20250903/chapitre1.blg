@@ -1,0 +1,68 @@
+This is BibTeX, Version 0.99d (TeX Live 2025)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: chapitre1.aux
+The style file: chicago.bst
+A level-1 auxiliary file: tables.aux
+A level-1 auxiliary file: figures.aux
+A level-1 auxiliary file: appendix_full.aux
+A level-1 auxiliary file: appendix_zlb.aux
+A level-1 auxiliary file: appendix_covid.aux
+Database file #1: master.bib
+Warning--no number and no volume in boehm2020us
+Warning--page numbers missing in boehm2020us
+Warning--no number and no volume in brunetti2009speculation
+Warning--page numbers missing in brunetti2009speculation
+Warning--no journal in buyukcsahin2010matters
+Warning--no number and no volume in buyukcsahin2010matters
+Warning--page numbers missing in buyukcsahin2010matters
+Warning--page numbers missing in fleming1997moves
+Warning--no number and no volume in getz1990barometer
+Warning--no number and no volume in hedegaard2011margins
+Warning--page numbers missing in hedegaard2011margins
+Warning--no number and no volume in masters2009testimony
+Warning--page numbers missing in masters2009testimony
+Warning--no number and no volume in 10.5089/9798400219788.001
+Warning--page numbers missing in 10.5089/9798400219788.001
+Warning--page numbers missing in stoll2010commodity
+You've used 86 entries,
+            2861 wiz_defined-function locations,
+            1103 strings with 18124 characters,
+and the built_in function-call counts, 61257 in all, are:
+= -- 5329
+> -- 4457
+< -- 2
++ -- 1360
+- -- 1542
+* -- 5706
+:= -- 11009
+add.period$ -- 259
+call.type$ -- 86
+change.case$ -- 623
+chr.to.int$ -- 84
+cite$ -- 102
+duplicate$ -- 1534
+empty$ -- 3663
+format.name$ -- 1825
+if$ -- 11353
+int.to.chr$ -- 3
+int.to.str$ -- 0
+missing$ -- 85
+newline$ -- 432
+num.names$ -- 856
+pop$ -- 382
+preamble$ -- 1
+purify$ -- 1135
+quote$ -- 0
+skip$ -- 1667
+stack$ -- 0
+substring$ -- 3536
+swap$ -- 496
+text.length$ -- 2
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 1712
+warning$ -- 16
+while$ -- 877
+width$ -- 0
+write$ -- 1123
+(There were 16 warnings)
